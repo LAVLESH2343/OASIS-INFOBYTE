@@ -16,8 +16,6 @@ class PasswordGeneratorApp:
         tk.Checkbutton(root, text="Include Lowercase", variable=self.include_lowercase).grid(row=1, column=1, padx=10, pady=5)
         self.include_digits = tk.BooleanVar(value=True)
         tk.Checkbutton(root, text="Include Digits", variable=self.include_digits).grid(row=2, column=0, padx=10, pady=5)
-        # self.include_special = tk.BooleanVar(value=True)
-        # tk.Checkbutton(root, text="Include Special Characters", variable=self.include_special).grid(row=2, column=1, padx=10, pady=5)
         tk.Button(root, text="Generate Password", command=self.generate_password).grid(row=3, column=0, columnspan=2, pady=20)
         self.password_var = tk.StringVar()
         tk.Entry(root, textvariable=self.password_var, state='readonly', width=50).grid(row=4, column=0, columnspan=2, padx=10, pady=10)
