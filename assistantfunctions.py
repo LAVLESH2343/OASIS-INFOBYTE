@@ -1,6 +1,5 @@
-import pyttsx3  # Use pyttsx3 instead of pyttsx
+import pyttsx3  
 import datetime 
-# import speech_recognition as sr
 
 # Initialize the TTS engine
 engine = pyttsx3.init("sapi5")
@@ -12,19 +11,17 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-
 def time():
+    date = str(datetime.datetime.now().date())
     hour = int(datetime.datetime.now().hour)
     if 0 <= hour < 12:
-        speak("Good morning!")
+        speak("Good morning! sir ")
     elif 12 <= hour < 18:
-        speak("Good afternoon!")
+        speak("Good afternoon! sir ")
     else:
-        speak("Good evening!")
-
-    speak("how i can assist you")
-
-
+        speak("Good evening! sir ")
+        speak(f"current date is{date}")
+    speak("how i can assist you sir ")
 def tell_time():
     now = datetime.datetime.now()  
     hour = now.strftime("%I")  
@@ -33,10 +30,5 @@ def tell_time():
    
     current_time = f"The time is {hour} {minute} {period}"
     speak(current_time) 
-
-
-speak("Hello, I will tell you the current time.")
-tell_time()
-
 
 

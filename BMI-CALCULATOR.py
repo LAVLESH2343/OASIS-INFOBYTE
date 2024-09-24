@@ -1,59 +1,25 @@
-import speech_recognition as sr
-import pyttsx3
-import threading
+import tkinter as tk
 
-# Text to Speech engine initialize karein
-engine = pyttsx3.init()
-engine.setProperty('rate', 150)
-
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
-
-# Speech recognition function
-def take_command():
-    recognizer = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        while True:
-            print("Listening...")
-            recognizer.adjust_for_ambient_noise(source)
-            try:
-                audio = recognizer.listen(source, timeout=5)
-                command = recognizer.recognize_google(audio, language='en-in')
-                print(f"Recognized: {command}")
-                if command.lower() == "exit":
-                    speak("Goodbye!")
-                    break
-                else:
-                    speak(f"You said: {command}")
-            except sr.UnknownValueError:
-                print("Could not understand the audio.")
-            except sr.RequestError:
-                print("Could not request results from Google Speech Recognition service.")
-
-# Function to get text input from user
-def get_text_input():
-    while True:
-        command = input("Please type your command (type 'exit' to stop): ")
-        if command.lower() == "exit":
-            speak("Goodbye!")
-            break
-        else:
-            speak(f"You typed: {command}")
-
-# Main function
-def main():
-    # Create threads for listening and writing
-    listening_thread = threading.Thread(target=take_command)
-    writing_thread = threading.Thread(target=get_text_input)
-
-    listening_thread.start()
-    writing_thread.start()
-
-    # Wait for both threads to complete
-    listening_thread.join()
-    writing_thread.join()
-
-if __name__ == "__main__":
-    main()
+def calculate_bmi():
+    try:
+        height = float(entry_height.get())
+        weight = float(entry_weight.get())
+        bmi = weight / ((height / 100) ** 2)
+        result_label.config(text=f"BMI: {bmi:.2f}")
+    except ValueError:
+        result_label.config(text="Invalid input")
+root = tk.Tk()
+root.title("BMI Calculator")
+root.geometry("400x300")
+root.resizable(False,False)
+tk.Label(root, text="Height (cm):").place(x=0, y=0)
+tk.Label(root, text="Weight (kg):").place(x=1, y=0)
+entry_height = tk.Entry(root)
+entry_weight = tk.Entry(root)
+entry_height.grid(row=0, column=1)
+entry_weight.grid(row=1, column=1)
+calculate_button = tk.Button(root, text="Calculate", command=calculate_bmi)
+calculate_button.grid(row=2, column=0, columnspan=2)
+result_label = tk.Label(root, text="BMI: ")
+result_label.grid(row=3, column=0, columnspan=2)
+root.mainloop()
