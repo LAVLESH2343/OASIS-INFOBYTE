@@ -69,7 +69,9 @@ if __name__ == "__main__":
            print(search_url)
            webbrowser.open(search_url)
           elif "open" in query:
-            o1 = query.replace("open","").strip()
-            speakaudio("opening" + o1)
+           s1= query.replace("open", "").strip()
+           speakaudio("opening" + s1)
+           s2 = f"https://www.google.com/search?q={s1}"
+           webbrowser.open(s2)
           else:
              pass
